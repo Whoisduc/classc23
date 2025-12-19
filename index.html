@@ -194,38 +194,19 @@
       </div>
     </section>
 
-    <!-- GALLERY (UPLOAD + PAGINATION) -->
+    <!-- GALLERY (PAGINATION) -->
     <section class="section" id="gallery">
       <div class="container">
-        <h2>Galeri Kegiatan</h2>
+        <h1>Galeri Kegiatan</h1>
         <p class="muted">
-          Dokumentasi kegiatan kelas. Saat ini kamu bisa upload dulu via tombol di bawah.
-          Nanti kalau tombol upload kamu hapus, gambar yang sudah tersimpan tetap ada (di browser/device yang sama).
+          Saksikan momen-momen spesial dan prestasi luar biasa dari kami melalui galeri kami.
+          Foto-foto inspiratif akan memberikan gambaran yang jelas tentang kehidupan di kelas kami.
         </p>
 
-        <!-- Upload UI (nanti boleh kamu hapus) -->
-        <div class="panel gallerytools">
-          <div class="gallerytools__row">
-            <label class="upbtn" for="galleryUpload">
-              Upload Foto
-            </label>
-            <input id="galleryUpload" type="file" accept="image/*" multiple hidden />
-
-            <button class="upbtn upbtn--ghost" id="galleryClear" type="button">
-              Hapus Semua Upload
-            </button>
-
-            <span class="badge" id="galleryCount">0 foto</span>
-          </div>
-
-          <p class="muted galleryhint">
-            Catatan: Upload tersimpan di browser (IndexedDB). Kalau pindah device / hapus data browser, upload hilang.
-          </p>
-        </div>
-
-        <!-- Grid galeri dirender via JS -->
+        <!-- Grid Galeri dirender via JS -->
         <div class="gallery" id="galleryGrid"></div>
 
+        <!-- Pagination Galeri -->
         <nav class="pager" aria-label="Pagination galeri">
           <div class="pagination" id="galleryPagination"></div>
         </nav>
@@ -297,7 +278,9 @@
           <span class="brand__dot"></span>
           <span class="brand__text">UIN RIL • Information System • Class C 2023</span>
         </div>
-        <p class="muted">Website kelas untuk dokumentasi kegiatan, struktur, anggota, dan pencapaian.</p>
+        <p class="muted">
+          Website kelas untuk dokumentasi kegiatan, struktur, anggota, dan pencapaian.
+        </p>
       </div>
 
       <div>
@@ -324,7 +307,6 @@
 
   <script src="app.js"></script>
 
-  <!-- Optional: style kecil khusus halaman ini -->
   <style>
     .quickfacts{
       display:grid; grid-template-columns:repeat(2, minmax(0,1fr));
