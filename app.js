@@ -44,7 +44,7 @@ counters.forEach((c) => counterObserver.observe(c));
 
 // ===== Utils =====
 const FALLBACK_PHOTO = "assets/members/placeholder.jpg";
-const FALLBACK_GALLERY = "assets/members/placeholder.jpg"; // fallback aman kalau gambar galeri hilang
+const FALLBACK_GALLERY = "assets/members/placeholder.jpg";
 
 function igUrl(username) {
   const u = (username || "").trim().replace(/^@/, "");
@@ -83,11 +83,9 @@ function makePaginationHtml({ totalPages, activePage, onLabelPrev = "Previous", 
 
   let html = "";
   html += makeBtn(onLabelPrev, activePage - 1, { disabled: activePage === 1, aria: "Halaman sebelumnya" });
-
   for (let i = start; i <= end; i++) {
     html += makeBtn(String(i), i, { active: i === activePage, aria: `Halaman ${i}` });
   }
-
   html += makeBtn(onLabelNext, activePage + 1, { disabled: activePage === totalPages, aria: "Halaman berikutnya" });
   return html;
 }
@@ -133,17 +131,52 @@ const structureMembers = [
   { name: "Isna Nurul Haqiqi", role: "Bendahara", ig: "isnahaqiqii", photo: "assets/members/isna.jpg" },
 ];
 
-// ===== Data: Gallery (MANUAL UPLOAD) =====
-// Simpan file foto di: assets/gallery/
-// Lalu tambahkan di sini. Contoh:
-// { thumb: "assets/gallery/kegiatan-1.jpg", full: "assets/gallery/kegiatan-1.jpg", alt: "Kegiatan 1" }
-const galleryItems = [
-  { thumb: "assets/gallery/kegiatan-1.jpg", full: "assets/gallery/kegiatan-1.jpg", alt: "Kegiatan 1" },
-  { thumb: "assets/gallery/kegiatan-2.jpg", full: "assets/gallery/kegiatan-2.jpg", alt: "Kegiatan 2" },
-  { thumb: "assets/gallery/kegiatan-3.jpg", full: "assets/gallery/kegiatan-3.jpg", alt: "Kegiatan 3" },
-  { thumb: "assets/gallery/kegiatan-4.jpg", full: "assets/gallery/kegiatan-4.jpg", alt: "Kegiatan 4" },
-  { thumb: "assets/gallery/kegiatan-5.jpg", full: "assets/gallery/kegiatan-5.jpg", alt: "Kegiatan 5" },
-  { thumb: "assets/gallery/kegiatan-6.jpg", full: "assets/gallery/kegiatan-6.jpg", alt: "Kegiatan 6" },
+// ===== Data: Gallery Groups (MANUAL) =====
+// Taruh file di: assets/gallery/<nama-file>.jpg
+// Lalu isi photos di bawah.
+const galleryGroups = [
+  {
+    id: "it-fest-2024",
+    title: "IT Fest",
+    date: "2024",
+    location: "UIN RIL",
+    cover: "assets/gallery/itfest/cover.jpg",
+    photos: [
+      "assets/gallery/itfest/1.jpg",
+      "assets/gallery/itfest/2.jpg",
+      "assets/gallery/itfest/3.jpg",
+      "assets/gallery/itfest/4.jpg",
+      "assets/gallery/itfest/5.jpg",
+      "assets/gallery/itfest/6.jpg",
+    ],
+  },
+  {
+    id: "class-meet-1",
+    title: "Class Meeting",
+    date: "2024",
+    location: "Bandar Lampung",
+    cover: "assets/gallery/class-meet/cover.jpg",
+    photos: [
+      "assets/gallery/class-meet/1.jpg",
+      "assets/gallery/class-meet/2.jpg",
+      "assets/gallery/class-meet/3.jpg",
+      "assets/gallery/class-meet/4.jpg",
+    ],
+  },
+  {
+    id: "study-group-1",
+    title: "Study Group & Diskusi",
+    date: "2024",
+    location: "Kampus",
+    cover: "assets/gallery/study-group/cover.jpg",
+    photos: [
+      "assets/gallery/study-group/1.jpg",
+      "assets/gallery/study-group/2.jpg",
+      "assets/gallery/study-group/3.jpg",
+      "assets/gallery/study-group/4.jpg",
+      "assets/gallery/study-group/5.jpg",
+    ],
+  },
 ];
 
 // ===== Render Card (pcard) =====
@@ -231,7 +264,6 @@ function renderMembersPage(list, page) {
     });
   }
 }
-
 renderMembersPage(filteredMembers, currentMemberPage);
 
 memberSearch?.addEventListener("input", () => {
@@ -240,42 +272,149 @@ memberSearch?.addEventListener("input", () => {
   renderMembersPage(filteredMembers, 1);
 });
 
-// ===== Gallery + Pagination (PER PAGE = 4 SELALU) =====
+// ===== Gallery Grouped Logic =====
+const galleryListView = document.getElementById("galleryListView");
+const galleryDetailView = document.getElementById("galleryDetailView");
+
+const gallerySearch = document.getElementById("gallerySearch");
+const galleryGroupCount = document.getElementById("galleryGroupCount");
+
+const galleryGroupGrid = document.getElementById("galleryGroupGrid");
+const galleryGroupPagination = document.getElementById("galleryGroupPagination");
+
+const galleryBackBtn = document.getElementById("galleryBackBtn");
+const galleryDetailTitle = document.getElementById("galleryDetailTitle");
+const galleryDetailMeta = document.getElementById("galleryDetailMeta");
+
 const galleryGrid = document.getElementById("galleryGrid");
 const galleryPagination = document.getElementById("galleryPagination");
 
+let filteredGroups = [...galleryGroups];
+let currentGroupPage = 1;
+
+let activeGroup = null;
 let currentGalleryPage = 1;
 
+function getGroupsPerPage() {
+  const w = window.innerWidth;
+  if (w <= 520) return 4;
+  return 6;
+}
 function getGalleryPerPage() {
-  return 4;
+  return 4; // foto per halaman (fixed)
 }
 
-function galleryItemHtml(item, idx) {
-  const full = item.full || item.thumb;
-  const alt = (item.alt || `Kegiatan ${idx + 1}`).trim();
-  const thumb = item.thumb || full;
+function groupCardHtml(g) {
+  const cover = g.cover || (g.photos?.[0] || FALLBACK_GALLERY);
+  const count = (g.photos || []).length;
+  const meta = [g.date, g.location].filter(Boolean).join(" • ");
 
   return `
-    <button class="gitem" data-full="${full}" aria-label="Buka ${alt}">
-      <img src="${thumb}" alt="${alt}" loading="lazy"
+    <article class="gcard" role="button" tabindex="0" data-gid="${g.id}" aria-label="Buka kegiatan ${g.title}">
+      <div class="gcard__media">
+        <img class="gcard__img" src="${cover}" alt="Cover ${g.title}" loading="lazy"
+             onerror="this.onerror=null;this.src='${FALLBACK_GALLERY}'" />
+        <div class="gcard__count">${count} foto</div>
+      </div>
+      <div class="gcard__body">
+        <h3 class="gcard__title">${g.title}</h3>
+        <p class="gcard__meta">${meta || "Kegiatan kelas"}</p>
+      </div>
+    </article>
+  `;
+}
+
+function showListView() {
+  galleryDetailView.style.display = "none";
+  galleryListView.style.display = "block";
+  activeGroup = null;
+}
+
+function showDetailView(group) {
+  activeGroup = group;
+  currentGalleryPage = 1;
+
+  galleryListView.style.display = "none";
+  galleryDetailView.style.display = "block";
+
+  galleryDetailTitle.textContent = group.title || "Kegiatan";
+  const meta = [
+    group.date ? group.date : null,
+    group.location ? group.location : null,
+    `${(group.photos || []).length} foto`,
+  ].filter(Boolean).join(" • ");
+  galleryDetailMeta.textContent = meta;
+
+  renderGalleryPhotosPage(group, 1);
+}
+
+function renderGroupsPage(list, page) {
+  if (!galleryGroupGrid) return;
+
+  const perPage = getGroupsPerPage();
+  const totalPages = getTotalPages(list, perPage);
+  const safePage = clampPage(page, totalPages);
+  currentGroupPage = safePage;
+
+  const start = (safePage - 1) * perPage;
+  const slice = list.slice(start, start + perPage);
+
+  galleryGroupGrid.innerHTML = slice.map(groupCardHtml).join("");
+  if (galleryGroupCount) galleryGroupCount.textContent = `${list.length} kegiatan`;
+
+  // bind click
+  galleryGroupGrid.querySelectorAll("[data-gid]").forEach((el) => {
+    const open = () => {
+      const gid = el.getAttribute("data-gid");
+      const group = galleryGroups.find((x) => x.id === gid);
+      if (group) showDetailView(group);
+    };
+    el.addEventListener("click", open);
+    el.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") open();
+    });
+  });
+
+  if (galleryGroupPagination) {
+    galleryGroupPagination.innerHTML = makePaginationHtml({
+      totalPages,
+      activePage: safePage,
+      onLabelPrev: "Previous",
+      onLabelNext: "Next",
+    });
+    galleryGroupPagination.querySelectorAll("button[data-page]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const p = Number(btn.getAttribute("data-page") || "1");
+        const tp = getTotalPages(filteredGroups, getGroupsPerPage());
+        renderGroupsPage(filteredGroups, clampPage(p, tp));
+      });
+    });
+  }
+}
+
+function photoItemHtml(src, idx, title = "Foto") {
+  const alt = `${title} ${idx + 1}`;
+  return `
+    <button class="gitem" data-full="${src}" aria-label="Buka ${alt}">
+      <img src="${src}" alt="${alt}" loading="lazy"
            onerror="this.onerror=null;this.src='${FALLBACK_GALLERY}'" />
     </button>
   `;
 }
 
-function renderGalleryPage(list, page) {
+function renderGalleryPhotosPage(group, page) {
   if (!galleryGrid) return;
 
+  const photos = group.photos || [];
   const perPage = getGalleryPerPage();
-  const totalPages = getTotalPages(list, perPage);
+  const totalPages = getTotalPages(photos, perPage);
   const safePage = clampPage(page, totalPages);
   currentGalleryPage = safePage;
 
   const start = (safePage - 1) * perPage;
-  const slice = list.slice(start, start + perPage);
+  const slice = photos.slice(start, start + perPage);
 
-  galleryGrid.innerHTML = slice.map(galleryItemHtml).join("");
-
+  galleryGrid.innerHTML = slice.map((src, i) => photoItemHtml(src, start + i, group.title)).join("");
   bindGalleryLightbox();
 
   if (galleryPagination) {
@@ -285,18 +424,28 @@ function renderGalleryPage(list, page) {
       onLabelPrev: "Previous",
       onLabelNext: "Next",
     });
-
     galleryPagination.querySelectorAll("button[data-page]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const p = Number(btn.getAttribute("data-page") || "1");
-        const tp = getTotalPages(galleryItems, getGalleryPerPage());
-        renderGalleryPage(galleryItems, clampPage(p, tp));
+        const tp = getTotalPages(photos, getGalleryPerPage());
+        renderGalleryPhotosPage(group, clampPage(p, tp));
       });
     });
   }
 }
 
-renderGalleryPage(galleryItems, currentGalleryPage);
+// initial group render
+renderGroupsPage(filteredGroups, currentGroupPage);
+
+gallerySearch?.addEventListener("input", () => {
+  const q = gallerySearch.value.trim().toLowerCase();
+  filteredGroups = galleryGroups.filter((g) => (g.title || "").toLowerCase().includes(q));
+  renderGroupsPage(filteredGroups, 1);
+});
+
+galleryBackBtn?.addEventListener("click", () => {
+  showListView();
+});
 
 // ===== Lightbox =====
 const lightbox = document.getElementById("lightbox");
@@ -340,11 +489,19 @@ let resizeTimer = null;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
+    // members
     const memberTotal = getTotalPages(filteredMembers, getMembersPerPage());
     renderMembersPage(filteredMembers, clampPage(currentMemberPage, memberTotal));
 
-    const galleryTotal = getTotalPages(galleryItems, getGalleryPerPage());
-    renderGalleryPage(galleryItems, clampPage(currentGalleryPage, galleryTotal));
+    // gallery groups (only if list view)
+    const groupTotal = getTotalPages(filteredGroups, getGroupsPerPage());
+    renderGroupsPage(filteredGroups, clampPage(currentGroupPage, groupTotal));
+
+    // gallery photos (if detail view open)
+    if (activeGroup) {
+      const photoTotal = getTotalPages(activeGroup.photos || [], getGalleryPerPage());
+      renderGalleryPhotosPage(activeGroup, clampPage(currentGalleryPage, photoTotal));
+    }
   }, 120);
 });
 

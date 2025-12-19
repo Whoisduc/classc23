@@ -173,7 +173,7 @@
       </div>
     </section>
 
-    <!-- MEMBERS (PAGINATION) -->
+    <!-- MEMBERS -->
     <section class="section" id="members">
       <div class="container">
         <h2>Anggota Kelas</h2>
@@ -194,20 +194,46 @@
       </div>
     </section>
 
-    <!-- GALLERY (PAGINATION) -->
+    <!-- GALLERY GROUPED -->
     <section class="section" id="gallery">
       <div class="container">
-        <h1>Galeri Kegiatan</h1>
+        <h2>Galeri Kegiatan</h2>
         <p class="muted">
-          Saksikan momen-momen spesial dan prestasi luar biasa dari kami melalui galeri kami.
-          Foto-foto inspiratif akan memberikan gambaran yang jelas tentang kehidupan di kelas kami.
+          Galeri disusun per kegiatan agar rapi. Klik salah satu kegiatan untuk melihat semua foto di dalamnya.
         </p>
 
-        <div class="gallery" id="galleryGrid"></div>
+        <div class="panel">
+          <!-- List view -->
+          <div id="galleryListView">
+            <div class="membertools">
+              <input id="gallerySearch" class="input" placeholder="Cari kegiatan…" />
+              <span class="badge" id="galleryGroupCount">0 kegiatan</span>
+            </div>
 
-        <nav class="pager" aria-label="Pagination galeri">
-          <div class="pagination" id="galleryPagination"></div>
-        </nav>
+            <div class="grouplist" id="galleryGroupGrid"></div>
+
+            <nav class="pager" aria-label="Pagination kegiatan">
+              <div class="pagination" id="galleryGroupPagination"></div>
+            </nav>
+          </div>
+
+          <!-- Detail view -->
+          <div id="galleryDetailView" style="display:none;">
+            <div class="gdetail__top">
+              <button class="backbtn" id="galleryBackBtn" type="button">← Kembali</button>
+              <div class="gdetail__titlewrap">
+                <h3 class="gdetail__title" id="galleryDetailTitle">Judul Kegiatan</h3>
+                <p class="muted gdetail__meta" id="galleryDetailMeta">Tanggal • Lokasi • x foto</p>
+              </div>
+            </div>
+
+            <div class="gallery" id="galleryGrid"></div>
+
+            <nav class="pager" aria-label="Pagination foto galeri">
+              <div class="pagination" id="galleryPagination"></div>
+            </nav>
+          </div>
+        </div>
       </div>
     </section>
 
