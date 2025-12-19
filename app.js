@@ -18,7 +18,6 @@ nav?.addEventListener("click", (e) => {
 function animateCount(el, target, duration = 900) {
   const start = 0;
   const t0 = performance.now();
-
   function tick(now) {
     const p = Math.min(1, (now - t0) / duration);
     const val = Math.floor(start + (target - start) * (1 - Math.pow(1 - p, 3)));
@@ -41,11 +40,11 @@ const counterObserver = new IntersectionObserver(
   },
   { threshold: 0.35 }
 );
-
 counters.forEach((c) => counterObserver.observe(c));
 
 // ===== Utils =====
 const FALLBACK_PHOTO = "assets/members/placeholder.jpg";
+const FALLBACK_GALLERY = "assets/members/placeholder.jpg"; // fallback aman kalau gambar galeri hilang
 
 function igUrl(username) {
   const u = (username || "").trim().replace(/^@/, "");
@@ -74,7 +73,6 @@ function makePaginationHtml({ totalPages, activePage, onLabelPrev = "Previous", 
     `;
   };
 
-  // tampil max 5 angka biar rapi
   const windowSize = 5;
   let start = Math.max(1, activePage - Math.floor(windowSize / 2));
   let end = start + windowSize - 1;
@@ -135,17 +133,17 @@ const structureMembers = [
   { name: "Isna Nurul Haqiqi", role: "Bendahara", ig: "isnahaqiqii", photo: "assets/members/isna.jpg" },
 ];
 
-// ===== Data: Gallery =====
+// ===== Data: Gallery (MANUAL UPLOAD) =====
+// Simpan file foto di: assets/gallery/
+// Lalu tambahkan di sini. Contoh:
+// { thumb: "assets/gallery/kegiatan-1.jpg", full: "assets/gallery/kegiatan-1.jpg", alt: "Kegiatan 1" }
 const galleryItems = [
-  { thumb: "assets/members/nabil.jpg", full: "assets/members/nabil.jpg", alt: "Kegiatan 1" },
-  { thumb: "assets/members/nabil.jpg", full: "assets/members/nabil.jpg", alt: "Kegiatan 2" },
-  { thumb: "assets/photo-3.jpg", full: "assets/photo-3.jpg", alt: "Kegiatan 3" },
-  { thumb: "assets/photo-4.jpg", full: "assets/photo-4.jpg", alt: "Kegiatan 4" },
-  { thumb: "assets/photo-5.jpg", full: "assets/photo-5.jpg", alt: "Kegiatan 5" },
-  { thumb: "assets/photo-6.jpg", full: "assets/photo-6.jpg", alt: "Kegiatan 6" },
-  { thumb: "assets/photo-7.jpg", full: "assets/photo-7.jpg", alt: "Kegiatan 7" },
-  { thumb: "assets/photo-8.jpg", full: "assets/photo-8.jpg", alt: "Kegiatan 8" },
-  // tambahkan kalau ada
+  { thumb: "assets/gallery/kegiatan-1.jpg", full: "assets/gallery/kegiatan-1.jpg", alt: "Kegiatan 1" },
+  { thumb: "assets/gallery/kegiatan-2.jpg", full: "assets/gallery/kegiatan-2.jpg", alt: "Kegiatan 2" },
+  { thumb: "assets/gallery/kegiatan-3.jpg", full: "assets/gallery/kegiatan-3.jpg", alt: "Kegiatan 3" },
+  { thumb: "assets/gallery/kegiatan-4.jpg", full: "assets/gallery/kegiatan-4.jpg", alt: "Kegiatan 4" },
+  { thumb: "assets/gallery/kegiatan-5.jpg", full: "assets/gallery/kegiatan-5.jpg", alt: "Kegiatan 5" },
+  { thumb: "assets/gallery/kegiatan-6.jpg", full: "assets/gallery/kegiatan-6.jpg", alt: "Kegiatan 6" },
 ];
 
 // ===== Render Card (pcard) =====
@@ -249,17 +247,18 @@ const galleryPagination = document.getElementById("galleryPagination");
 let currentGalleryPage = 1;
 
 function getGalleryPerPage() {
-  return 4; // ✅ sesuai permintaan: selalu 4 item per halaman
+  return 4;
 }
 
 function galleryItemHtml(item, idx) {
   const full = item.full || item.thumb;
-  const alt = item.alt || `Kegiatan ${idx + 1}`;
+  const alt = (item.alt || `Kegiatan ${idx + 1}`).trim();
   const thumb = item.thumb || full;
 
   return `
     <button class="gitem" data-full="${full}" aria-label="Buka ${alt}">
-      <img src="${thumb}" alt="${alt}" loading="lazy" />
+      <img src="${thumb}" alt="${alt}" loading="lazy"
+           onerror="this.onerror=null;this.src='${FALLBACK_GALLERY}'" />
     </button>
   `;
 }
@@ -277,7 +276,6 @@ function renderGalleryPage(list, page) {
 
   galleryGrid.innerHTML = slice.map(galleryItemHtml).join("");
 
-  // re-bind lightbox
   bindGalleryLightbox();
 
   if (galleryPagination) {
@@ -342,11 +340,9 @@ let resizeTimer = null;
 window.addEventListener("resize", () => {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
-    // members
     const memberTotal = getTotalPages(filteredMembers, getMembersPerPage());
     renderMembersPage(filteredMembers, clampPage(currentMemberPage, memberTotal));
 
-    // gallery (perPage fixed 4, tapi totalPages bisa berubah kalau item berubah — aman)
     const galleryTotal = getTotalPages(galleryItems, getGalleryPerPage());
     renderGalleryPage(galleryItems, clampPage(currentGalleryPage, galleryTotal));
   }, 120);
