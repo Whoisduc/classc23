@@ -131,8 +131,8 @@ const members = [
 const structureMembers = [
   { name: "Andiko Septa Aditya", role: "Ketua Kosma", ig: "", photo: "assets/members/andiko.jpg" },
   { name: "Sultan Muliya Pratama", role: "Wakil Kosma", ig: "omsul._", photo: "assets/members/sultan.jpg" },
-  { name: "Agustiani Ambarwati", role: "Sekretaris", ig: "", photo: "assets/members/agustiani.jpg" },
-  { name: "Isna Nurul Haqiqi", role: "Bendahara", ig: "", photo: "assets/members/isna.jpg" },
+  { name: "Agustiani Ambarwati", role: "Sekretaris", ig: "gustianambarr", photo: "assets/members/agustiani.jpg" },
+  { name: "Isna Nurul Haqiqi", role: "Bendahara", ig: "isnahaqiqii", photo: "assets/members/isna.jpg" },
 ];
 
 // ===== Data: Gallery =====
