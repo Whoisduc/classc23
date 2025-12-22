@@ -203,20 +203,25 @@ img{max-width:100%; display:block}
 .gallery{
   margin-top:14px;
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap:12px;
+
+  /* Desktop: 4 kolom tetap */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
-.gitem{
-  padding:0;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.03);
-  border-radius:18px;
-  overflow:hidden;
-  cursor:pointer;
-  transition:transform .15s ease;
+
+/* Tablet: 3 kolom */
+@media (max-width: 980px){
+  .gallery{
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
-.gitem img{aspect-ratio: 4/3; object-fit:cover; width:100%; height:100%}
-.gitem:hover{transform:translateY(-2px)}
+
+/* HP: 2 kolom */
+@media (max-width: 520px){
+  .gallery{
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 
 /* ===== Gallery Group Cards ===== */
 .grouplist{

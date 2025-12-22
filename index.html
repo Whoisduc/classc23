@@ -3,317 +3,167 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>UIN RIL • Information System • Class C 2023</title>
+  <title>IS Class C 2023 • UIN RIL</title>
   <meta name="description" content="Website resmi Information System Class C 2023 UIN Raden Intan Lampung." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- NAVBAR -->
-  <header class="topbar" id="top">
-    <div class="container topbar__inner">
-      <a class="brand" href="#top" aria-label="UIN RIL - IS C 2023">
-        <span class="brand__dot"></span>
-        <span class="brand__text">IS Class C 2023 • UIN RIL</span>
-      </a>
 
-      <button class="navbtn" id="navbtn" aria-label="Buka menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+<header class="topbar" id="top">
+  <div class="container topbar__inner">
+    <a class="brand" href="#top">
+      <span class="brand__dot"></span>
+      <span class="brand__text">IS Class C 2023 • UIN RIL</span>
+    </a>
 
-      <nav class="nav" id="nav">
-        <a href="#home">Home</a>
-        <a href="#about">Tentang</a>
-        <a href="#structure">Struktur</a>
-        <a href="#members">Anggota</a>
-        <a href="#gallery">Galeri</a>
-        <a href="#achievements">Prestasi</a>
-        <a href="#contact">Kontak</a>
+    <button class="navbtn" id="navbtn" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <a href="#home">Home</a>
+      <a href="#about">Tentang</a>
+      <a href="#structure">Struktur</a>
+      <a href="#members">Anggota</a>
+      <a href="#gallery">Galeri</a>
+      <a href="#achievements">Prestasi</a>
+      <a href="#contact">Kontak</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="container hero__grid">
+    <div>
+      <p class="pill">UIN Raden Intan Lampung • Sistem Informasi</p>
+      <h1>Information System<br>Class C 2023</h1>
+      <p class="lead">
+        Website resmi kelas untuk dokumentasi akademik, kegiatan, dan pencapaian mahasiswa.
+      </p>
+      <div class="hero__cta">
+        <a class="btn" href="#about">Tentang Kelas</a>
+        <a class="btn btn--ghost" href="#gallery">Galeri</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container">
+    <h2>Tentang Kelas</h2>
+    <p class="lead2">
+      Information System Class C 2023 merupakan komunitas akademik mahasiswa Program Studi Sistem Informasi
+      UIN Raden Intan Lampung yang berfokus pada pengembangan kompetensi, kolaborasi, dan profesionalisme.
+    </p>
+  </div>
+</section>
+
+<!-- STRUCTURE -->
+<section class="section" id="structure">
+  <div class="container">
+    <h2>Struktur Kelas</h2>
+    <div class="profilegrid" id="structureGrid"></div>
+  </div>
+</section>
+
+<!-- MEMBERS -->
+<section class="section" id="members">
+  <div class="container">
+    <h2>Anggota Kelas</h2>
+
+    <div class="panel">
+      <div class="membertools">
+        <input id="memberSearch" class="input" placeholder="Cari nama mahasiswa…" />
+        <span class="badge" id="memberCount">0 mahasiswa</span>
+      </div>
+
+      <div class="profilegrid" id="memberGrid"></div>
+
+      <nav class="pager">
+        <div class="pagination" id="memberPagination"></div>
       </nav>
     </div>
-  </header>
+  </div>
+</section>
 
-  <main>
-    <!-- HERO -->
-    <section class="hero" id="home">
-      <div class="container hero__grid">
-        <div class="hero__copy">
-          <p class="pill">UIN Raden Intan Lampung • Sistem Informasi</p>
+<!-- ===== GALERI KEGIATAN (FIXED) ===== -->
+<section class="section" id="gallery">
+  <div class="container">
+    <h2>Galeri Kegiatan</h2>
+    <p class="muted">
+      Dokumentasi kegiatan akademik dan non-akademik Information System Class C 2023.
+    </p>
 
-          <h1>
-            Information System<br />
-            Class C 2023
-          </h1>
+    <div class="panel">
 
-          <p class="lead">
-            Platform resmi kelas untuk dokumentasi akademik, kegiatan, struktur organisasi,
-            serta portofolio karya dan pencapaian mahasiswa.
-          </p>
-
-          <div class="hero__cta">
-            <a class="btn" href="#about">Tentang Kelas</a>
-            <a class="btn btn--ghost" href="#gallery">Galeri Kegiatan</a>
-          </div>
-
-          <div class="quickfacts">
-            <div class="qf">
-              <span class="qf__k">Institusi</span>
-              <span class="qf__v">UIN RIL</span>
-            </div>
-            <div class="qf">
-              <span class="qf__k">Program Studi</span>
-              <span class="qf__v">Sistem Informasi</span>
-            </div>
-            <div class="qf">
-              <span class="qf__k">Angkatan</span>
-              <span class="qf__v">2023</span>
-            </div>
-            <div class="qf">
-              <span class="qf__k">Kelas</span>
-              <span class="qf__v">C</span>
-            </div>
-          </div>
+      <!-- LIST VIEW -->
+      <div id="galleryListView">
+        <div class="membertools">
+          <input id="gallerySearch" class="input" placeholder="Cari kegiatan…" />
+          <span class="badge" id="galleryGroupCount">0 kegiatan</span>
         </div>
 
-        <div class="hero__card">
-          <div class="statgrid">
-            <div class="stat">
-              <div class="stat__num" data-count="29">0</div>
-              <div class="stat__label">Mahasiswa</div>
-            </div>
-            <div class="stat">
-              <div class="stat__num" data-count="15">0</div>
-              <div class="stat__label">Mahasiswa Putra</div>
-            </div>
-            <div class="stat">
-              <div class="stat__num" data-count="14">0</div>
-              <div class="stat__label">Mahasiswa Putri</div>
-            </div>
-          </div>
+        <div class="grouplist" id="galleryGroupGrid"></div>
 
-          <div class="divider"></div>
-
-          <h3 class="h3">Media & Koordinasi</h3>
-          <p class="muted">
-            Kanal resmi untuk penyampaian informasi, dokumentasi, dan koordinasi internal kelas.
-          </p>
-
-          <div class="social">
-            <a class="chip" href="https://instagram.com/sisfo_classc23" target="_blank" rel="noreferrer">Instagram Kelas</a>
-            <!-- <a class="chip" href="#" target="_blank" rel="noreferrer">Grup WhatsApp</a>
-            <a class="chip" href="#" target="_blank" rel="noreferrer">Drive / Arsip</a> -->
-          </div>
-
-          <div class="divider"></div>
-
-          <div class="highlights">
-            <div class="hl">
-              <div class="hl__title">Fokus Akademik</div>
-              <div class="hl__text muted">Sistem Informasi & Produk Digital</div>
-            </div>
-            <div class="hl">
-              <div class="hl__title">Nilai Kelas</div>
-              <div class="hl__text muted">Disiplin, kolaboratif, dan bertanggung jawab</div>
-            </div>
-            <div class="hl">
-              <div class="hl__title">Output</div>
-              <div class="hl__text muted">Proyek, kompetisi, dan riset</div>
-            </div>
-          </div>
-        </div>
+        <nav class="pager">
+          <div class="pagination" id="galleryGroupPagination"></div>
+        </nav>
       </div>
 
-      <div class="hero__glow" aria-hidden="true"></div>
-    </section>
-
-    <!-- ABOUT -->
-    <section class="section" id="about">
-      <div class="container">
-        <h2>Tentang Kelas</h2>
-
-        <p class="lead2">
-          Information System Class C 2023 merupakan komunitas akademik mahasiswa Program Studi Sistem Informasi
-          UIN Raden Intan Lampung yang berorientasi pada pengembangan kompetensi, kolaborasi,
-          dan pencapaian akademik yang berkelanjutan.
-        </p>
-
-        <div class="panel">
-          <div class="grid2">
-            <div>
-              <h3 class="h3">Visi</h3>
-              <p class="muted">
-                Menjadi kelas yang unggul, solid, dan adaptif dalam bidang Sistem Informasi
-                melalui budaya belajar yang konsisten dan kolaboratif.
-              </p>
-            </div>
-
-            <div>
-              <h3 class="h3">Misi</h3>
-              <ul class="bullets">
-                <li>Menciptakan lingkungan belajar yang disiplin dan profesional.</li>
-                <li>Mengembangkan kemampuan teknis dan non-teknis mahasiswa.</li>
-                <li>Mendorong kerja sama melalui proyek dan kegiatan akademik.</li>
-                <li>Meningkatkan partisipasi dalam kompetisi dan sertifikasi.</li>
-                <li>Menjaga komunikasi kelas yang transparan dan terstruktur.</li>
-              </ul>
-            </div>
+      <!-- DETAIL VIEW -->
+      <div id="galleryDetailView" style="display:none;">
+        <div class="gdetail__top">
+          <button class="backbtn" id="galleryBackBtn">← Kembali</button>
+          <div>
+            <h3 id="galleryDetailTitle"></h3>
+            <p class="muted" id="galleryDetailMeta"></p>
           </div>
         </div>
 
-        <div class="panel" style="margin-top:14px">
-          <h3 class="h3">Fungsi Website</h3>
-          <p class="muted">
-            Website ini berfungsi sebagai pusat informasi resmi kelas yang memuat struktur organisasi,
-            daftar anggota, dokumentasi kegiatan, serta arsip prestasi dan karya mahasiswa.
-            Seluruh konten disusun untuk mendukung transparansi, koordinasi, dan dokumentasi jangka panjang.
-          </p>
-        </div>
+        <div class="gallery" id="galleryGrid"></div>
+
+        <nav class="pager">
+          <div class="pagination" id="galleryPagination"></div>
+        </nav>
       </div>
-    </section>
 
-    <!-- STRUCTURE -->
-    <section class="section" id="structure">
-      <div class="container">
-        <h2>Struktur Kelas</h2>
-        <p class="muted">
-          Susunan pengurus Information System Class C 2023.
-        </p>
-        <div class="profilegrid" id="structureGrid"></div>
-      </div>
-    </section>
-
-    <!-- MEMBERS -->
-    <section class="section" id="members">
-      <div class="container">
-        <h2>Anggota Kelas</h2>
-        <p class="muted">
-          Daftar mahasiswa Information System Class C 2023.
-        </p>
-
-        <div class="panel">
-          <div class="membertools">
-            <input id="memberSearch" class="input" placeholder="Cari nama mahasiswa…" />
-            <span class="badge" id="memberCount">0 mahasiswa</span>
-          </div>
-
-          <div class="profilegrid" id="memberGrid"></div>
-
-          <nav class="pager" aria-label="Pagination anggota">
-            <div class="pagination" id="memberPagination"></div>
-          </nav>
-        </div>
-      </div>
-    </section>
-
-    <!-- GALLERY -->
-    <section class="section" id="gallery">
-      <div class="container">
-        <h2>Galeri Kegiatan</h2>
-        <p class="muted">
-          Dokumentasi kegiatan akademik dan non-akademik yang diikuti oleh Information System Class C 2023.
-        </p>
-
-        <!-- gallery content via JS -->
-        <div class="panel">
-          <div id="galleryListView"></div>
-          <div id="galleryDetailView" style="display:none;"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ACHIEVEMENTS -->
-    <section class="section" id="achievements">
-      <div class="container">
-        <h2>Prestasi & Karya</h2>
-        <p class="muted">
-          Ringkasan capaian akademik, kompetisi, serta karya mahasiswa.
-        </p>
-
-        <div class="cards cards--wide">
-          <article class="card card--wide">
-            <h3>Prestasi</h3>
-            <ul class="bullets">
-              <li>Kompetisi akademik dan non-akademik</li>
-              <li>Sertifikasi dan pelatihan</li>
-              <li>Kegiatan nasional maupun regional</li>
-            </ul>
-          </article>
-
-          <article class="card card--wide">
-            <h3>Karya</h3>
-            <ul class="bullets">
-              <li>Pengembangan sistem dan website</li>
-              <li>Proyek analisis data</li>
-              <li>Studi kasus UI/UX</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section class="section" id="contact">
-      <div class="container">
-        <h2>Kontak</h2>
-        <p class="muted">
-          Informasi kontak resmi kelas.
-        </p>
-
-        <div class="panel">
-          <div class="grid2">
-            <div>
-              <h3 class="h3">Institusi</h3>
-              <p class="muted">UIN Raden Intan Lampung</p>
-              <p class="muted">Bandar Lampung, Lampung</p>
-            </div>
-            <div>
-              <h3 class="h3">Kontak</h3>
-              <p class="muted">Email: is-c2023@contoh.com</p>
-              <p class="muted">Admin Kelas</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- LIGHTBOX -->
-    <div class="lightbox" id="lightbox" aria-hidden="true">
-      <button class="lightbox__close" id="lightboxClose" aria-label="Tutup">×</button>
-      <img id="lightboxImg" alt="" />
     </div>
-  </main>
+  </div>
+</section>
 
-  <footer class="footer">
-    <div class="container footer__grid">
-      <div>
-        <div class="brand brand--footer">
-          <span class="brand__dot"></span>
-          <span class="brand__text">IS Class C 2023 • UIN RIL</span>
-        </div>
-        <p class="muted">
-          Website resmi Information System Class C 2023.
-        </p>
-      </div>
+<!-- ACHIEVEMENTS -->
+<section class="section" id="achievements">
+  <div class="container">
+    <h2>Prestasi & Karya</h2>
+  </div>
+</section>
 
-      <div>
-        <h4>Navigasi</h4>
-        <a href="#home">Home</a>
-        <a href="#about">Tentang</a>
-        <a href="#members">Anggota</a>
-        <a href="#gallery">Galeri</a>
-      </div>
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="container">
+    <h2>Kontak</h2>
+    <p class="muted">Program Studi Sistem Informasi – UIN RIL</p>
+  </div>
+</section>
 
-      <div>
-        <h4>Informasi</h4>
-        <p class="muted">Program Studi Sistem Informasi</p>
-        <p class="muted">Angkatan 2023 • Kelas C</p>
-      </div>
-    </div>
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" id="lightboxClose">×</button>
+  <img id="lightboxImg" alt="">
+</div>
 
-    <div class="container footer__bottom">
-      <span class="muted">© <span id="year"></span> Information System Class C 2023</span>
-    </div>
-  </footer>
+</main>
 
-  <script src="app.js"></script>
+<footer class="footer">
+  <div class="container footer__bottom">
+    <span class="muted">© <span id="year"></span> IS Class C 2023 • UIN RIL</span>
+  </div>
+</footer>
+
+<script src="app.js"></script>
 </body>
 </html>
