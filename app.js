@@ -823,3 +823,96 @@ window.addEventListener("resize", () => {
 
 // ===== Footer year =====
 document.getElementById("year").textContent = String(new Date().getFullYear());
+
+
+/* =================================================================== */
+/* ======================= TAMBAHAN: REVEAL FX ======================== */
+/* =================================================================== */
+
+(function enableRevealAnimations(){
+  // elemen utama yang enak di-reveal
+  const targets = [
+    ".hero__copy",
+    ".hero__card",
+    "#about .panel",
+    "#structure .container",
+    "#members .panel",
+    "#gallery .panel",
+    "#achievements .panel",
+    "#contact .container",
+    ".footer",
+  ];
+
+  // kasih class reveal untuk transisi masuk
+  targets.forEach((sel) => {
+    document.querySelectorAll(sel).forEach((el) => {
+      el.classList.add("reveal");
+    });
+  });
+
+  // grid yang pengen stagger
+  const staggerTargets = ["#structureGrid", "#memberGrid", "#galleryGroupGrid", "#galleryGrid", "#achievementsGrid"];
+  staggerTargets.forEach((id) => {
+    const el = document.querySelector(id);
+    if (el) el.classList.add("reveal-stagger");
+  });
+
+  // Observer: ketika keluar viewport -> hapus is-visible supaya bisa replay
+  const obs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const el = entry.target;
+
+        if (entry.isIntersecting) {
+          // masuk viewport -> animasi jalan
+          el.classList.add("is-visible");
+        } else {
+          // keluar viewport -> reset supaya ketika masuk lagi animasi replay
+          el.classList.remove("is-visible");
+        }
+      });
+    },
+    {
+      threshold: 0.08,
+      rootMargin: "0px 0px -10% 0px",
+    }
+  );
+
+  document.querySelectorAll(".reveal, .reveal-stagger").forEach((el) => obs.observe(el));
+
+  // Re-hook untuk konten dinamis (pagination/search) agar grid tetap bisa replay
+  function reobserveGrid(gridEl){
+    if (!gridEl) return;
+    // reset biar replay ketika terlihat
+    gridEl.classList.remove("is-visible");
+    // pastikan observer attach
+    obs.observe(gridEl);
+    // kalau kebetulan sedang di viewport, trigger cepat
+    requestAnimationFrame(() => {
+      const r = gridEl.getBoundingClientRect();
+      const inView = r.top < (window.innerHeight * 0.9) && r.bottom > (window.innerHeight * 0.1);
+      if (inView) gridEl.classList.add("is-visible");
+    });
+  }
+
+  // watch perubahan isi grid (pagination/search)
+  const gridsToWatch = staggerTargets
+    .map((id) => document.querySelector(id))
+    .filter(Boolean);
+
+  gridsToWatch.forEach((grid) => {
+    const mo = new MutationObserver(() => reobserveGrid(grid));
+    mo.observe(grid, { childList: true, subtree: false });
+  });
+
+  // optional: kalau user klik anchor nav (jump), pastikan update
+  window.addEventListener("hashchange", () => {
+    document.querySelectorAll(".reveal, .reveal-stagger").forEach((el) => {
+      el.classList.remove("is-visible");
+    });
+    // biar observer nge-set lagi sesuai posisi baru
+    requestAnimationFrame(() => {
+      document.querySelectorAll(".reveal, .reveal-stagger").forEach((el) => obs.observe(el));
+    });
+  });
+})();
