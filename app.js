@@ -47,6 +47,7 @@ counters.forEach((c) => counterObserver.observe(c));
 // ===== Utils =====
 const FALLBACK_PHOTO = "assets/members/placeholder.jpg";
 const FALLBACK_GALLERY = "assets/members/placeholder.jpg";
+const FALLBACK_ACH = "assets/members/placeholder.jpg";
 
 function igUrl(username) {
   const u = (username || "").trim().replace(/^@/, "");
@@ -133,6 +134,14 @@ const structureMembers = [
   { name: "Isna Nurul Haqiqi", role: "Bendahara", ig: "isnahaqiqii", photo: "assets/members/isna.jpg" },
 ];
 
+// ===== Data: Achievements (BLANK CARDS) =====
+// Tinggal ganti img/title/desc sesuai kebutuhan
+const achievements = [
+  { title: "Juara 1 Futsal Dies Natalies", desc: "Berhasil meraih Juara 1 Lomba Futsal Dies Natalis, sebuah pencapaian membanggakan bagi tim yang diperkuat oleh rookie semester 1. Prestasi ini mencerminkan semangat kompetitif, kerja sama tim yang solid, serta kemampuan beradaptasi dan mental juara sejak awal perjalanan akademik. Kemenangan tersebut tidak hanya menjadi bukti potensi atletik, tetapi juga menegaskan komitmen terhadap sportivitas dan dedikasi dalam mengharumkan nama institusi.", img: "assets/achievements/1.jpg" },
+  { title: "Juara 3 IT Fest Aplikasi Mobile/Web", desc: "Meraih Juara 3 IT Fest kategori Aplikasi Mobile/Web, dengan menghadirkan solusi aplikasi yang fokus pada fungsionalitas, pengalaman pengguna, dan relevansi kebutuhan. Di tengah kompetisi yang menampilkan inovasi beragam mulai dari implementasi teknologi lanjutan seperti IoT hingga pengembangan aplikasi sejenis karya ini mampu menonjol melalui perancangan sistem yang terstruktur, konsep yang matang, serta nilai guna yang aplikatif, sehingga layak memperoleh pengakuan pada posisi tiga besar.", img: "assets/achievements/2.jpg" },
+  { title: "Karya Aplikasi Food Rescue", desc: "Aplikasi web FoodRescue merupakan platform digital yang dirancang sebagai wadah terpusat untuk menampung dan menyalurkan donasi makanan baik makanan sisa yang masih layak konsumsi maupun makanan baru serta donasi berupa dana. Website ini berfokus pada upaya pengurangan limbah makanan sekaligus peningkatan kepedulian sosial dengan menyalurkan bantuan secara tepat sasaran kepada panti asuhan dan lembaga sosial di wilayah Lampung. Melalui sistem yang sederhana, transparan, dan mudah digunakan, FoodRescue memungkinkan donatur untuk memantau riwayat donasi, melihat lokasi penerima manfaat, serta memastikan setiap kontribusi memberikan dampak nyata bagi masyarakat yang membutuhkan.", img: "assets/achievements/3.jpg" },
+];
+
 // ===== Data: Gallery Groups (MANUAL) =====
 const galleryGroups = [
   {
@@ -213,7 +222,6 @@ const galleryGroups = [
       "assets/gallery/diesnatalies/35.jpg",
       "assets/gallery/diesnatalies/36.jpg",
       "assets/gallery/diesnatalies/37.jpg",
-      "assets/gallery/diesnatalies/38.jpg",
     ],
   },
   {
@@ -374,6 +382,11 @@ const galleryGroups = [
       "assets/gallery/random/108.jpg",
       "assets/gallery/random/109.jpg",
       "assets/gallery/random/110.jpg",
+      "assets/gallery/random/111.jpg",
+      "assets/gallery/random/112.jpg",
+      "assets/gallery/random/113.jpg",
+      "assets/gallery/random/114.jpg",
+      "assets/gallery/random/115.jpg",
     ],
   },
 ];
@@ -392,7 +405,7 @@ function memberCardHtml(m) {
 
   return `
     <article class="pcard">
-      <div class="pcard__media" data-member-photo="${photo}" data-member-name="${m.name}">
+      <div class="pcard__media">
         <img class="pcard__img"
              src="${photo}"
              alt="Foto ${m.name}"
@@ -446,7 +459,6 @@ function renderMembersPage(list, page) {
   memberGrid.innerHTML = slice.map(memberCardHtml).join("");
   if (memberCount) memberCount.textContent = `${list.length} mahasiswa`;
 
-  // ✅ penting: tiap render harus bind ulang
   bindMemberLightbox();
 
   if (memberPagination) {
@@ -473,6 +485,70 @@ memberSearch?.addEventListener("input", () => {
   filteredMembers = members.filter((m) => m.name.toLowerCase().includes(q));
   renderMembersPage(filteredMembers, 1);
 });
+
+// ===== Achievements (Blank Cards + Pagination) =====
+const achievementsGrid = document.getElementById("achievementsGrid");
+const achievementsPagination = document.getElementById("achievementsPagination");
+
+let currentAchPage = 1;
+
+function getAchPerPage() {
+  const w = window.innerWidth;
+  if (w <= 520) return 4;
+  if (w <= 980) return 6;
+  return 8;
+}
+
+function achievementCardHtml(a) {
+  const img = (a.img || "").trim() || FALLBACK_ACH;
+  const title = (a.title || "Judul").trim();
+  const desc = (a.desc || "Deskripsi singkat.").trim();
+
+  return `
+    <article class="achcard">
+      <div class="achcard__media">
+        <img class="achcard__img" src="${img}" alt="Gambar ${title}" loading="lazy"
+             onerror="this.onerror=null;this.src='${FALLBACK_ACH}'" />
+      </div>
+      <div class="achcard__body">
+        <h3 class="achcard__title">${title}</h3>
+        <p class="achcard__desc">${desc}</p>
+      </div>
+    </article>
+  `;
+}
+
+function renderAchievementsPage(list, page) {
+  if (!achievementsGrid) return;
+
+  const perPage = getAchPerPage();
+  const totalPages = getTotalPages(list, perPage);
+  const safePage = clampPage(page, totalPages);
+  currentAchPage = safePage;
+
+  const start = (safePage - 1) * perPage;
+  const slice = list.slice(start, start + perPage);
+
+  achievementsGrid.innerHTML = slice.map(achievementCardHtml).join("");
+
+  if (achievementsPagination) {
+    achievementsPagination.innerHTML = makePaginationHtml({
+      totalPages,
+      activePage: safePage,
+      onLabelPrev: "Previous",
+      onLabelNext: "Next",
+    });
+
+    achievementsPagination.querySelectorAll("button[data-page]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const p = Number(btn.getAttribute("data-page") || "1");
+        const tp = getTotalPages(achievements, getAchPerPage());
+        renderAchievementsPage(achievements, clampPage(p, tp));
+      });
+    });
+  }
+}
+renderAchievementsPage(achievements, currentAchPage);
 
 // ===== Gallery Grouped Logic =====
 const galleryListView = document.getElementById("galleryListView");
@@ -504,14 +580,8 @@ function getGroupsPerPage() {
 }
 function getGalleryPerPage() {
   const w = window.innerWidth;
-
-  // Desktop: 3 baris x 4 kolom = 12 foto per halaman
   if (w > 980) return 12;
-
-  // Tablet: 3 kolom, biar tetap 3 baris -> 9
   if (w > 520) return 9;
-
-  // HP: 2 kolom, biar tetap 3 baris -> 6
   return 6;
 }
 
@@ -685,33 +755,18 @@ function bindGalleryLightbox() {
   });
 }
 
-// ✅ NEW: klik foto anggota (struktur + anggota) -> lightbox
+// klik foto anggota (struktur + anggota) -> lightbox
 function bindMemberLightbox() {
-  // yang bisa diklik hanya area foto (pcard__media)
   document.querySelectorAll(".pcard__media").forEach((wrap) => {
     wrap.style.cursor = "pointer";
     wrap.setAttribute("role", "button");
     wrap.setAttribute("tabindex", "0");
     wrap.setAttribute("aria-label", "Buka foto anggota");
 
-    const open = () => {
-      const img = wrap.querySelector("img");
-      const src = img?.getAttribute("src");
-      const alt = img?.getAttribute("alt") || "Foto";
-      openLightbox(src, alt);
-    };
-
-    // hindari double bind: reset handler sederhana dengan clone
     const clone = wrap.cloneNode(true);
     wrap.parentNode.replaceChild(clone, wrap);
 
-    clone.style.cursor = "pointer";
-    clone.setAttribute("role", "button");
-    clone.setAttribute("tabindex", "0");
-    clone.setAttribute("aria-label", "Buka foto anggota");
-
     clone.addEventListener("click", (e) => {
-      // klik IG jangan buka lightbox (IG ada di bawah, tapi aman)
       if (e.target.closest(".pcard__ig")) return;
       const img = clone.querySelector("img");
       const src = img?.getAttribute("src");
@@ -731,7 +786,6 @@ function bindMemberLightbox() {
   });
 }
 
-// bind untuk struktur pertama kali (setelah renderStructure)
 bindMemberLightbox();
 
 lightboxClose?.addEventListener("click", closeLightbox);
@@ -750,6 +804,10 @@ window.addEventListener("resize", () => {
     // members
     const memberTotal = getTotalPages(filteredMembers, getMembersPerPage());
     renderMembersPage(filteredMembers, clampPage(currentMemberPage, memberTotal));
+
+    // achievements
+    const achTotal = getTotalPages(achievements, getAchPerPage());
+    renderAchievementsPage(achievements, clampPage(currentAchPage, achTotal));
 
     // gallery groups
     const groupTotal = getTotalPages(filteredGroups, getGroupsPerPage());

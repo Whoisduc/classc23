@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="id">
-<html lang="id">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -8,6 +7,7 @@
   <meta name="description" content="Website kelas UIN RIL — Information System Class C 2023." />
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
   <header class="topbar" id="top">
     <div class="container topbar__inner">
@@ -32,10 +32,9 @@
     </div>
   </header>
 
-<main>
+  <main>
 
-<!-- HERO -->
-<!-- HERO -->
+    <!-- HERO -->
     <section class="hero" id="home">
       <div class="container hero__grid">
         <div class="hero__copy">
@@ -93,8 +92,6 @@
 
           <div class="social">
             <a class="chip" href="https://instagram.com/sisfo_classc23" target="_blank" rel="noreferrer">Instagram Kelas</a>
-            <!-- <a class="chip" href="#" target="_blank" rel="noreferrer">Grup WhatsApp</a>
-            <a class="chip" href="#" target="_blank" rel="noreferrer">Drive/Notion</a> -->
           </div>
 
           <div class="divider"></div>
@@ -119,8 +116,8 @@
       <div class="hero__glow" aria-hidden="true"></div>
     </section>
 
-<!-- ABOUT -->
-<section class="section" id="about">
+    <!-- ABOUT -->
+    <section class="section" id="about">
       <div class="container">
         <h2>Tentang Kelas</h2>
         <p class="lead2">
@@ -167,111 +164,120 @@
       </div>
     </section>
 
-<!-- STRUCTURE -->
-<section class="section" id="structure">
-  <div class="container">
-    <h2>Struktur Kelas</h2>
-    <div class="profilegrid" id="structureGrid"></div>
-  </div>
-</section>
-
-<!-- MEMBERS -->
-<section class="section" id="members">
-  <div class="container">
-    <h2>Anggota Kelas</h2>
-
-    <div class="panel">
-      <div class="membertools">
-        <input id="memberSearch" class="input" placeholder="Cari nama mahasiswa…" />
-        <span class="badge" id="memberCount">0 mahasiswa</span>
+    <!-- STRUCTURE -->
+    <section class="section" id="structure">
+      <div class="container">
+        <h2>Struktur Kelas</h2>
+        <div class="profilegrid" id="structureGrid"></div>
       </div>
+    </section>
 
-      <div class="profilegrid" id="memberGrid"></div>
+    <!-- MEMBERS -->
+    <section class="section" id="members">
+      <div class="container">
+        <h2>Anggota Kelas</h2>
 
-      <nav class="pager">
-        <div class="pagination" id="memberPagination"></div>
-      </nav>
-    </div>
-  </div>
-</section>
-
-<!-- ===== GALERI KEGIATAN (FIXED) ===== -->
-<section class="section" id="gallery">
-  <div class="container">
-    <h2>Galeri Kegiatan</h2>
-    <p class="muted">
-      Dokumentasi kegiatan akademik dan non-akademik Information System Class C 2023.
-    </p>
-
-    <div class="panel">
-
-      <!-- LIST VIEW -->
-      <div id="galleryListView">
-        <div class="membertools">
-          <input id="gallerySearch" class="input" placeholder="Cari kegiatan…" />
-          <span class="badge" id="galleryGroupCount">0 kegiatan</span>
-        </div>
-
-        <div class="grouplist" id="galleryGroupGrid"></div>
-
-        <nav class="pager">
-          <div class="pagination" id="galleryGroupPagination"></div>
-        </nav>
-      </div>
-
-      <!-- DETAIL VIEW -->
-      <div id="galleryDetailView" style="display:none;">
-        <div class="gdetail__top">
-          <button class="backbtn" id="galleryBackBtn">← Kembali</button>
-          <div>
-            <h3 id="galleryDetailTitle"></h3>
-            <p class="muted" id="galleryDetailMeta"></p>
+        <div class="panel">
+          <div class="membertools">
+            <input id="memberSearch" class="input" placeholder="Cari nama mahasiswa…" />
+            <span class="badge" id="memberCount">0 mahasiswa</span>
           </div>
+
+          <div class="profilegrid" id="memberGrid"></div>
+
+          <nav class="pager">
+            <div class="pagination" id="memberPagination"></div>
+          </nav>
         </div>
-
-        <div class="gallery" id="galleryGrid"></div>
-
-        <nav class="pager">
-          <div class="pagination" id="galleryPagination"></div>
-        </nav>
       </div>
+    </section>
 
+    <!-- GALLERY -->
+    <section class="section" id="gallery">
+      <div class="container">
+        <h2>Galeri Kegiatan</h2>
+        <p class="muted">
+          Dokumentasi kegiatan akademik dan non-akademik Information System Class C 2023.
+        </p>
+
+        <div class="panel">
+
+          <!-- LIST VIEW -->
+          <div id="galleryListView">
+            <div class="membertools">
+              <input id="gallerySearch" class="input" placeholder="Cari kegiatan…" />
+              <span class="badge" id="galleryGroupCount">0 kegiatan</span>
+            </div>
+
+            <div class="grouplist" id="galleryGroupGrid"></div>
+
+            <nav class="pager">
+              <div class="pagination" id="galleryGroupPagination"></div>
+            </nav>
+          </div>
+
+          <!-- DETAIL VIEW -->
+          <div id="galleryDetailView" style="display:none;">
+            <div class="gdetail__top">
+              <button class="backbtn" id="galleryBackBtn">← Kembali</button>
+              <div class="gdetail__titlewrap">
+                <h3 id="galleryDetailTitle" class="gdetail__title"></h3>
+                <p class="muted gdetail__meta" id="galleryDetailMeta"></p>
+              </div>
+            </div>
+
+            <div class="gallery" id="galleryGrid"></div>
+
+            <nav class="pager">
+              <div class="pagination" id="galleryPagination"></div>
+            </nav>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section class="section" id="achievements">
+      <div class="container">
+        <h2>Prestasi & Karya</h2>
+        <p class="muted">Tempat menampilkan pencapaian, project, publikasi, sertifikasi, atau karya terbaik anggota.</p>
+
+        <div class="panel" style="margin-top:14px">
+          <div class="cards cards--wide" id="achievementsGrid"></div>
+
+          <nav class="pager">
+            <div class="pagination" id="achievementsPagination"></div>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="container">
+        <h2>Kontak</h2>
+        <p class="muted">Program Studi Sistem Informasi – UIN RIL</p>
+      </div>
+    </section>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <button class="lightbox__close" id="lightboxClose">×</button>
+      <img id="lightboxImg" alt="">
     </div>
-  </div>
-</section>
 
-<!-- ACHIEVEMENTS -->
-<section class="section" id="achievements">
-  <div class="container">
-    <h2>Prestasi & Karya</h2>
-  </div>
-</section>
+  </main>
 
-<!-- CONTACT -->
-<section class="section" id="contact">
-  <div class="container">
-    <h2>Kontak</h2>
-    <p class="muted">Program Studi Sistem Informasi – UIN RIL</p>
-  </div>
-</section>
+  <footer class="footer">
+    <div class="container footer__bottom">
+      <span class="muted">© <span id="year"></span> IS Class C 2023 • UIN RIL</span>
+    </div>
+  </footer>
 
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" aria-hidden="true">
-  <button class="lightbox__close" id="lightboxClose">×</button>
-  <img id="lightboxImg" alt="">
-</div>
+  <script src="app.js"></script>
 
-</main>
-
-<footer class="footer">
-  <div class="container footer__bottom">
-    <span class="muted">© <span id="year"></span> IS Class C 2023 • UIN RIL</span>
-  </div>
-</footer>
-
-<script src="app.js"></script>
-
-<style>
+  <style>
     .quickfacts{
       display:grid; grid-template-columns:repeat(2, minmax(0,1fr));
       gap:10px; margin-top:18px; max-width:520px;
