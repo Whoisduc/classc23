@@ -45,7 +45,26 @@ img{max-width:100%; display:block}
   display:flex; align-items:center; gap:10px; font-weight:700;
   min-width:0;
 }
-.brand__dot{width:10px; height:10px; border-radius:999px; background:linear-gradient(135deg,var(--accent),var(--accent2))}
+
+/* ✅ FIX: Logo header (ukuran ngikut container header + rounded) */
+.brand__logo{
+  width:50px;               /* aman dalam header 64px */
+  height:50px;
+}
+
+.brand__logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;       /* logo svg tidak kepotong */
+  padding:6px;              /* biar logo tidak nempel pinggir */
+}
+
+/* kalau kamu masih pakai dot di tempat lain, ini aman dibiarkan */
+.brand__dot{
+  width:10px; height:10px; border-radius:999px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2))
+}
+
 .brand__text{
   letter-spacing:.2px;
   display:block;
@@ -53,6 +72,17 @@ img{max-width:100%; display:block}
   overflow:hidden;
   text-overflow:ellipsis;
   max-width:62ch;
+}
+
+.logo_besar{
+  width: 100%;
+  height: 200px;
+}
+
+.logo_besar img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .nav{
@@ -426,6 +456,7 @@ img{max-width:100%; display:block}
 /* ===== Breakpoints ===== */
 @media (max-width: 980px){
   .hero__grid{grid-template-columns:1fr}
+
   .navbtn{display:inline-block}
   .nav{
     position:fixed;
@@ -453,6 +484,9 @@ img{max-width:100%; display:block}
     background:rgba(255,255,255,.03);
     border:1px solid var(--line);
   }
+
+  /* ✅ logo sedikit lebih kecil */
+  .brand__logo{ width:36px; height:36px; border-radius:13px; }
 }
 
 @media (max-width: 520px){
@@ -468,4 +502,8 @@ img{max-width:100%; display:block}
 
   .gdetail__top{flex-direction:column; align-items:stretch}
   .backbtn{width:100%}
+
+  /* ✅ logo lebih kecil lagi + teks dipendekin otomatis */
+  .brand__logo{ width:34px; height:34px; border-radius:12px; }
+  .brand__text{ max-width: 36ch; }
 }

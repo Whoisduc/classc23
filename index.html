@@ -12,7 +12,11 @@
   <header class="topbar" id="top">
     <div class="container topbar__inner">
       <a class="brand" href="#home" aria-label="UIN RIL - IS C 2023">
-        <span class="brand__dot"></span>
+        <!-- ✅ Logo baru -->
+        <span class="brand__logo" aria-hidden="true">
+          <img src="assets/logo.png" alt="" loading="lazy">
+        </span>
+
         <span class="brand__text">UIN RIL • Information System • Class C 2023</span>
       </a>
 
@@ -33,12 +37,14 @@
   </header>
 
   <main>
-
     <!-- HERO -->
     <section class="hero" id="home">
       <div class="container hero__grid">
         <div class="hero__copy">
           <p class="pill">UIN Raden Intan Lampung • Sistem Informasi</p>
+          <div class ="logo_besar">
+            <img src="assets/logo.png" alt="">
+          </div>
           <h1>Information System<br/>Class C 2023</h1>
           <p class="lead">
             Website resmi kelas untuk dokumentasi kegiatan, struktur, anggota, karya, dan pencapaian.
@@ -201,7 +207,6 @@
         </p>
 
         <div class="panel">
-
           <!-- LIST VIEW -->
           <div id="galleryListView">
             <div class="membertools">
@@ -232,7 +237,6 @@
               <div class="pagination" id="galleryPagination"></div>
             </nav>
           </div>
-
         </div>
       </div>
     </section>
@@ -266,7 +270,6 @@
       <button class="lightbox__close" id="lightboxClose">×</button>
       <img id="lightboxImg" alt="">
     </div>
-
   </main>
 
   <footer class="footer">
@@ -303,6 +306,5 @@
     .grid2{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
     @media (max-width: 980px){ .grid2{grid-template-columns:1fr} .quickfacts{grid-template-columns:1fr} }
   </style>
-
 </body>
 </html>
