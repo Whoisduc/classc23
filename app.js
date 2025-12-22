@@ -213,7 +213,7 @@ const galleryGroups = [
     title: "Suka Suka Aja",
     date: "2023 - 2025",
     location: "Dimana Mana Hatiku Senang",
-    cover: "assets/gallery/Random/cover.jpg",
+    cover: "assets/gallery/random/cover.jpg",
     photos: [
       "assets/gallery/random/1.jpg",
       "assets/gallery/random/2.jpg",
