@@ -343,7 +343,6 @@ const galleryGroups = [
       "assets/gallery/random/74.jpg",
       "assets/gallery/random/75.jpg",
       "assets/gallery/random/76.jpg",
-      "assets/gallery/random/77.jpg",
       "assets/gallery/random/78.jpg",
       "assets/gallery/random/79.jpg",
       "assets/gallery/random/80.jpg",
