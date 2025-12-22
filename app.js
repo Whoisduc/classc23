@@ -157,7 +157,6 @@ const galleryGroups = [
       "assets/gallery/itfest/13.jpg",
       "assets/gallery/itfest/14.jpg",
       "assets/gallery/itfest/15.jpg",
-      "assets/gallery/itfest/16.jpg",
       "assets/gallery/itfest/17.jpg",
       "assets/gallery/itfest/18.jpg",
       "assets/gallery/itfest/19.jpg",
