@@ -1,3 +1,5 @@
+// app.js (FULL REPLACE)
+
 // ===== Mobile nav toggle =====
 const navBtn = document.getElementById("navbtn");
 const nav = document.getElementById("nav");
@@ -94,25 +96,25 @@ function makePaginationHtml({ totalPages, activePage, onLabelPrev = "Previous", 
 const members = [
   { name: "Agustiani Ambarwati", role: "Member", ig: "gustianambarr", photo: "assets/members/agustiani.jpg" },
   { name: "Al Fahmi", role: "Member", ig: "Muhammadalfahmi__", photo: "assets/members/alfahmi.jpg" },
-  { name: "Andiko Septa Aditya", role: "Member", ig: "", photo: "assets/members/andiko.jpg" },
-  { name: "Aprizal", role: "Member", ig: "", photo: "assets/members/aprizal.jpg" },
-  { name: "Bella Anggun Sapitri", role: "Member", ig: "", photo: "assets/members/bella.jpg" },
+  { name: "Andiko Septa Aditya", role: "Member", ig: "andikoseptaaditya", photo: "assets/members/andiko.jpg" },
+  { name: "Aprizal", role: "Member", ig: "izalapr78", photo: "assets/members/aprizal.jpg" },
+  { name: "Bella Anggun Sapitri", role: "Member", ig: "bellaanggunsapitri_10", photo: "assets/members/bella.jpg" },
   { name: "Detia Cindo Hameva", role: "Member", ig: "detiahmvaa", photo: "assets/members/detia.jpg" },
-  { name: "Drajad Putra Adi Kusuma", role: "Member", ig: "", photo: "assets/members/drajad.jpg" },
-  { name: "Erwin Saputra", role: "Member", ig: "", photo: "assets/members/erwin.jpg" },
-  { name: "Ferdi Ardika Putro", role: "Member", ig: "", photo: "assets/members/ferdi.jpg" },
+  { name: "Drajad Putra Adi Kusuma", role: "Member", ig: "drajaddd", photo: "assets/members/drajad.jpg" },
+  { name: "Erwin Saputra", role: "Member", ig: "erwinsptra77", photo: "assets/members/erwin.jpg" },
+  { name: "Ferdi Ardika Putro", role: "Member", ig: "frdiardikptro", photo: "assets/members/ferdi.jpg" },
   { name: "Gevira Nur Harnika Pratami", role: "Member", ig: "geviranurharnika", photo: "assets/members/gevira.jpg" },
   { name: "Inayah Maudia Devira Putri", role: "Member", ig: "inayahmaudia_dp", photo: "assets/members/inayah.jpg" },
   { name: "Isna Nurul Haqiqi", role: "Member", ig: "isnahaqiqii", photo: "assets/members/isna.jpg" },
   { name: "Khoirunnisa", role: "Member", ig: "khrnnnnsa", photo: "assets/members/khoirunnisa.jpg" },
   { name: "Lu'lu Mir'atul Azizah", role: "Member", ig: "lulumrtlzh", photo: "assets/members/lulu.jpg" },
-  { name: "Muhammad Irfan Nur Dzaky", role: "Member", ig: "", photo: "assets/members/irfan.jpg" },
-  { name: "Muhammad Iqbal Hafidho", role: "Member", ig: "", photo: "assets/members/iqbal.jpg" },
-  { name: "Muhammad Nur Alfiansyah", role: "Member", ig: "", photo: "assets/members/alfiansyah.jpg" },
-  { name: "Nabil Thufail", role: "Member", ig: "", photo: "assets/members/nabil.jpg" },
-  { name: "Nalendra Satria Majid", role: "Member", ig: "", photo: "assets/members/nalendra.jpg" },
-  { name: "Praja Haqqi Qudsy", role: "Member", ig: "", photo: "assets/members/praja.jpg" },
-  { name: "Rafi Ardika Ramadhan", role: "Member", ig: "", photo: "assets/members/rafi.jpg" },
+  { name: "Muhammad Irfan Nur Dzaky", role: "Member", ig: "irfan.dzaky_", photo: "assets/members/irfan.jpg" },
+  { name: "Muhammad Iqbal Hafidho", role: "Member", ig: "mih27_", photo: "assets/members/iqbal.jpg" },
+  { name: "Muhammad Nur Alfiansyah", role: "Member", ig: "tuan_muda_baik2", photo: "assets/members/alfiansyah.jpg" },
+  { name: "Nabil Thufail", role: "Member", ig: "nabilthfail", photo: "assets/members/nabil.jpg" },
+  { name: "Nalendra Satria Majid", role: "Member", ig: "nalenn___", photo: "assets/members/nalendra.jpg" },
+  { name: "Praja Haqqi Qudsy", role: "Member", ig: "prajahaqqi", photo: "assets/members/praja.jpg" },
+  { name: "Rafi Ardika Ramadhan", role: "Member", ig: "rafii.ardka_", photo: "assets/members/rafi.jpg" },
   { name: "Ratunabila Falen", role: "Member", ig: "bilaa._17", photo: "assets/members/ratunabila.jpg" },
   { name: "Repi Junita Sari", role: "Member", ig: "repijunitaaa", photo: "assets/members/repi.jpg" },
   { name: "Rima Ranataw", role: "Member", ig: "rimarnatw", photo: "assets/members/rima.jpg" },
@@ -132,8 +134,6 @@ const structureMembers = [
 ];
 
 // ===== Data: Gallery Groups (MANUAL) =====
-// Taruh file di: assets/gallery/<nama-file>.jpg
-// Lalu isi photos di bawah.
 const galleryGroups = [
   {
     id: "it-fest-2024",
@@ -193,7 +193,7 @@ function memberCardHtml(m) {
 
   return `
     <article class="pcard">
-      <div class="pcard__media">
+      <div class="pcard__media" data-member-photo="${photo}" data-member-name="${m.name}">
         <img class="pcard__img"
              src="${photo}"
              alt="Foto ${m.name}"
@@ -246,6 +246,9 @@ function renderMembersPage(list, page) {
 
   memberGrid.innerHTML = slice.map(memberCardHtml).join("");
   if (memberCount) memberCount.textContent = `${list.length} mahasiswa`;
+
+  // ✅ penting: tiap render harus bind ulang
+  bindMemberLightbox();
 
   if (memberPagination) {
     memberPagination.innerHTML = makePaginationHtml({
@@ -301,7 +304,7 @@ function getGroupsPerPage() {
   return 6;
 }
 function getGalleryPerPage() {
-  return 4; // foto per halaman (fixed)
+  return 4;
 }
 
 function groupCardHtml(g) {
@@ -362,7 +365,6 @@ function renderGroupsPage(list, page) {
   galleryGroupGrid.innerHTML = slice.map(groupCardHtml).join("");
   if (galleryGroupCount) galleryGroupCount.textContent = `${list.length} kegiatan`;
 
-  // bind click
   galleryGroupGrid.querySelectorAll("[data-gid]").forEach((el) => {
     const open = () => {
       const gid = el.getAttribute("data-gid");
@@ -434,7 +436,6 @@ function renderGalleryPhotosPage(group, page) {
   }
 }
 
-// initial group render
 renderGroupsPage(filteredGroups, currentGroupPage);
 
 gallerySearch?.addEventListener("input", () => {
@@ -476,6 +477,55 @@ function bindGalleryLightbox() {
   });
 }
 
+// ✅ NEW: klik foto anggota (struktur + anggota) -> lightbox
+function bindMemberLightbox() {
+  // yang bisa diklik hanya area foto (pcard__media)
+  document.querySelectorAll(".pcard__media").forEach((wrap) => {
+    wrap.style.cursor = "pointer";
+    wrap.setAttribute("role", "button");
+    wrap.setAttribute("tabindex", "0");
+    wrap.setAttribute("aria-label", "Buka foto anggota");
+
+    const open = () => {
+      const img = wrap.querySelector("img");
+      const src = img?.getAttribute("src");
+      const alt = img?.getAttribute("alt") || "Foto";
+      openLightbox(src, alt);
+    };
+
+    // hindari double bind: reset handler sederhana dengan clone
+    const clone = wrap.cloneNode(true);
+    wrap.parentNode.replaceChild(clone, wrap);
+
+    clone.style.cursor = "pointer";
+    clone.setAttribute("role", "button");
+    clone.setAttribute("tabindex", "0");
+    clone.setAttribute("aria-label", "Buka foto anggota");
+
+    clone.addEventListener("click", (e) => {
+      // klik IG jangan buka lightbox (IG ada di bawah, tapi aman)
+      if (e.target.closest(".pcard__ig")) return;
+      const img = clone.querySelector("img");
+      const src = img?.getAttribute("src");
+      const alt = img?.getAttribute("alt") || "Foto";
+      openLightbox(src, alt);
+    });
+
+    clone.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        const img = clone.querySelector("img");
+        const src = img?.getAttribute("src");
+        const alt = img?.getAttribute("alt") || "Foto";
+        openLightbox(src, alt);
+      }
+    });
+  });
+}
+
+// bind untuk struktur pertama kali (setelah renderStructure)
+bindMemberLightbox();
+
 lightboxClose?.addEventListener("click", closeLightbox);
 lightbox?.addEventListener("click", (e) => {
   if (e.target === lightbox) closeLightbox();
@@ -493,7 +543,7 @@ window.addEventListener("resize", () => {
     const memberTotal = getTotalPages(filteredMembers, getMembersPerPage());
     renderMembersPage(filteredMembers, clampPage(currentMemberPage, memberTotal));
 
-    // gallery groups (only if list view)
+    // gallery groups
     const groupTotal = getTotalPages(filteredGroups, getGroupsPerPage());
     renderGroupsPage(filteredGroups, clampPage(currentGroupPage, groupTotal));
 

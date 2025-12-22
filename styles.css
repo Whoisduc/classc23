@@ -302,8 +302,13 @@ img{max-width:100%; display:block}
 }
 .lightbox[aria-hidden="false"]{display:grid}
 .lightbox img{
-  width:min(920px, 92%);
-  max-height:80vh;
+  width: auto;
+  height: auto;
+
+  max-width: min(920px, 92vw);
+  max-height: 80vh;
+
+  object-fit: contain;
   border-radius:18px;
   border:1px solid rgba(255,255,255,.12);
   box-shadow:var(--shadow);
