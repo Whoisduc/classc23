@@ -119,7 +119,7 @@ const members = [
   { name: "Repi Junita Sari", role: "Member", ig: "repijunitaaa", photo: "assets/members/repi.jpg" },
   { name: "Rima Ranataw", role: "Member", ig: "rimarnatw", photo: "assets/members/rima.jpg" },
   { name: "Rossa Florensia", role: "Member", ig: "rossaflorensia_", photo: "assets/members/rossa.jpg" },
-  { name: "Tohar", role: "Member", ig: "", photo: "assets/members/tohar.jpg" },
+  { name: "Tohar", role: "Member", ig: "tohar1305", photo: "assets/members/tohar.jpg" },
   { name: "Sultan Muliya Pratama", role: "Member", ig: "omsul._", photo: "assets/members/sultan.jpg" },
   { name: "Vira Dwi Novia", role: "Member", ig: "_viradwii", photo: "assets/members/vira.jpg" },
   { name: "Zahra Mutiara", role: "Member", ig: "zahra_mutiiara", photo: "assets/members/zahra.jpg" },
