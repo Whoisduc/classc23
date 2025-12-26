@@ -607,6 +607,7 @@ img{max-width:100%; display:block}
   border-radius: var(--radius);
   background: rgba(255,255,255,.02);
   padding:16px;
+  margin-top: 14px;
 }
 .contactlist{
   display:grid;
@@ -645,7 +646,7 @@ img{max-width:100%; display:block}
 
 /* ===== Confess Corner ===== */
 .confessPanel{
-  margin-top:14px;
+  margin-top:0px;
 }
 
 .hidden_iframe{
