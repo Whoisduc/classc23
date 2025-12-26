@@ -978,3 +978,31 @@ document.getElementById("year").textContent = String(new Date().getFullYear());
     });
   });
 })();
+
+// ===== Confess Form (Google Form submit via hidden iframe) =====
+const confessForm = document.getElementById("confessForm");
+const cfStatus = document.getElementById("cfStatus");
+const cfReset = document.getElementById("cfReset");
+
+function setStatus(msg) {
+  if (cfStatus) cfStatus.textContent = msg;
+}
+
+confessForm?.addEventListener("submit", () => {
+  setStatus("Mengirim... 🚀");
+
+  // Small delay: assume success after submit (karena iframe hidden, kita ga bisa baca response)
+  setTimeout(() => {
+    setStatus("Terkirim ✅ Makasih udah confess 😭🔥");
+    confessForm.reset();
+
+    // reset mode ke default
+    const mode = document.getElementById("cfMode");
+    if (mode) mode.value = "Anonim";
+  }, 900);
+});
+
+cfReset?.addEventListener("click", () => {
+  confessForm?.reset();
+  setStatus("");
+});

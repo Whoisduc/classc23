@@ -593,3 +593,149 @@ img{max-width:100%; display:block}
   .statgrid{grid-template-columns:1fr}
   .stat__num{font-size:26px}
 }
+
+/* CONTACT layout: force vertical */
+.contactgrid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:14px;
+}
+
+/* contact box style */
+.contactbox{
+  border:1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255,255,255,.02);
+  padding:16px;
+}
+.contactlist{
+  display:grid;
+  gap:12px;
+  margin-top:10px;
+}
+.citem{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+}
+.cicon{
+  width:40px;
+  height:40px;
+  display:grid;
+  place-items:center;
+  border-radius:14px;
+  border:1px solid var(--line);
+  background: rgba(0,0,0,.18);
+  font-size:18px;
+}
+.ctitle{font-weight:800}
+.cdesc{color:var(--muted); font-size:14px; margin-top:2px}
+.clink{color:var(--text); text-decoration:underline; text-underline-offset:3px}
+.clink:hover{opacity:.85}
+
+.contactform{display:grid; gap:12px}
+.frow{display:grid; gap:6px}
+.flabel{font-size:13px; color:var(--muted); font-weight:700}
+.farea{min-height:120px; resize:vertical}
+
+/* responsive */
+@media (max-width: 980px){
+  .contactgrid{grid-template-columns:1fr}
+}
+
+/* ===== Confess Corner ===== */
+.confessPanel{
+  margin-top:14px;
+}
+
+.hidden_iframe{
+  width:0;
+  height:0;
+  border:0;
+  position:absolute;
+  left:-9999px;
+}
+
+.confessForm{
+  margin-top:12px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.confessGrid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap:12px;
+}
+
+.confessActions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.confessStatus{
+  min-height:18px;
+}
+
+.confessInfo{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.confessChip{
+  padding:10px 12px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.03);
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* textarea styling */
+textarea.input{
+  resize:vertical;
+  min-height:120px;
+}
+
+/* Responsive */
+@media (max-width: 980px){
+  .confessGrid{
+    grid-template-columns:1fr;
+  }
+  .confessActions .btn{
+    flex:1;
+  }
+}
+
+/* ===== FIX: dropdown/select text visibility ===== */
+select.input{
+  color: var(--text);
+  background: rgba(0,0,0,.20);
+  border: 1px solid var(--line);
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 42px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--text) 50%),
+    linear-gradient(135deg, var(--text) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) calc(50% - 3px),
+    calc(100% - 12px) calc(50% - 3px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+}
+
+/* option styling */
+select.input option{
+  background: #0b0f1a;
+  color: var(--text);
+}
+
+/* helps browser render form controls in dark mode */
+:root{
+  color-scheme: dark;
+}
