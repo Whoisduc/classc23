@@ -265,6 +265,58 @@
           <p class="muted">Program Studi Sistem Informasi – UIN RIL</p>
       
           <div class="panel" style="margin-top:14px">
+
+            <div class="panel confessPanel">
+              <p class="muted">Punya pesan / confess buat anak-anak kelas? Drop di bawah 🤫</p>
+              <h3 class="h3">Confess Corner 🤫</h3>
+              <p class="muted">Isi aja, nanti masuk ke Admin kok. Bisa anonim atau tampil nama.</p>
+    
+              <!-- Hidden iframe supaya submit ga redirect -->
+              <iframe name="hidden_iframe" id="hidden_iframe" class="hidden_iframe"></iframe>
+    
+              <form id="confessForm" class="confessForm"
+                method="POST"
+                target="hidden_iframe"
+                action="https://docs.google.com/forms/d/e/1FAIpQLSdK4yPlQxC-TRbaJGfczaq7-IrCSP8hO_n8S64s-PHmXfZACQ/formResponse">
+    
+                <div class="confessGrid">
+                  <input class="input" id="cfName" name="entry.1111097249" placeholder="Nama kamu (opsional)" />
+    
+                  <select class="input" id="cfMode" name="entry.1624540382">
+                    <option value="Anonim">Anonim</option>
+                    <option value="Tampil Nama">Tampil Nama</option>
+                  </select>
+    
+                  <select class="input" id="cfCategory" name="entry.2065953004">
+                    <option value="Confess 🤫">Confess 🤫</option>
+                    <option value="Curhat 😭">Curhat 😭</option>
+                    <option value="Spill 🔥">Spill 🔥</option>
+                    <option value="Saran 🧠">Saran 🧠</option>
+                    <option value="Random 🌀">Random 🌀</option>
+                  </select>
+    
+                  <input class="input" id="cfTarget" name="entry.818322486" placeholder="Buat siapa? (opsional)" />
+                </div>
+    
+                <textarea class="input" id="cfMessage" name="entry.1167669332" rows="5" placeholder="Wajib Tulis confess kamu di sini yaa..."></textarea>
+    
+                <div class="confessActions">
+                  <button type="submit" class="btn">Kirim 🚀</button>
+                  <button type="button" class="btn btn--ghost" id="cfReset">Reset</button>
+                </div>
+    
+                <p class="muted confessStatus" id="cfStatus"></p>
+              </form>
+    
+              <div class="divider"></div>
+    
+              <div class="confessInfo">
+                <div class="confessChip">⚡ Fast</div>
+                <div class="confessChip">🔒 Bisa Anonim</div>
+                <div class="confessChip">🧠 Keep it respectful</div>
+              </div>
+            </div>
+
             <div class="contactgrid">
               <div class="contactbox">
                 <h3 class="h3">Informasi</h3>
@@ -317,58 +369,7 @@
                     YouTube
                   </a>
                 </div>
-              </div>
-        
-        <div class="panel confessPanel">
-          <p class="muted">Punya pesan / confess buat anak-anak kelas? Drop di bawah 🤫</p>
-          <h3 class="h3">Confess Corner 🤫</h3>
-          <p class="muted">Isi aja, nanti masuk ke Admin kok. Bisa anonim atau tampil nama.</p>
-
-          <!-- Hidden iframe supaya submit ga redirect -->
-          <iframe name="hidden_iframe" id="hidden_iframe" class="hidden_iframe"></iframe>
-
-          <form id="confessForm" class="confessForm"
-            method="POST"
-            target="hidden_iframe"
-            action="https://docs.google.com/forms/d/e/1FAIpQLSdK4yPlQxC-TRbaJGfczaq7-IrCSP8hO_n8S64s-PHmXfZACQ/formResponse">
-
-            <div class="confessGrid">
-              <input class="input" id="cfName" name="entry.1111097249" placeholder="Nama kamu (opsional)" />
-
-              <select class="input" id="cfMode" name="entry.1624540382">
-                <option value="Anonim">Anonim</option>
-                <option value="Tampil Nama">Tampil Nama</option>
-              </select>
-
-              <select class="input" id="cfCategory" name="entry.2065953004">
-                <option value="Confess 🤫">Confess 🤫</option>
-                <option value="Curhat 😭">Curhat 😭</option>
-                <option value="Spill 🔥">Spill 🔥</option>
-                <option value="Saran 🧠">Saran 🧠</option>
-                <option value="Random 🌀">Random 🌀</option>
-              </select>
-
-              <input class="input" id="cfTarget" name="entry.818322486" placeholder="Buat siapa? (opsional)" />
-            </div>
-
-            <textarea class="input" id="cfMessage" name="entry.1167669332" rows="5" placeholder="Wajib Tulis confess kamu di sini yaa..."></textarea>
-
-            <div class="confessActions">
-              <button type="submit" class="btn">Kirim 🚀</button>
-              <button type="button" class="btn btn--ghost" id="cfReset">Reset</button>
-            </div>
-
-            <p class="muted confessStatus" id="cfStatus"></p>
-          </form>
-
-          <div class="divider"></div>
-
-          <div class="confessInfo">
-            <div class="confessChip">⚡ Fast</div>
-            <div class="confessChip">🔒 Bisa Anonim</div>
-            <div class="confessChip">🧠 Keep it respectful</div>
           </div>
-        </div>
 
       </div>
     </section>   
